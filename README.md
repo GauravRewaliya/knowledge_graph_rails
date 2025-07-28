@@ -1,24 +1,9 @@
-# README
+# commands
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+bundle exec rspec spec/integration
 
-Things you may want to cover:
 
-* Ruby version
+RAILS_ENV=test bundle exec rspec spec/integration
 
-* System dependencies
+RAILS_ENV=test bundle exec rake rswag:specs:swaggerize
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

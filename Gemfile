@@ -52,3 +52,9 @@ gem "dotenv-rails", "~> 3.1"
 
 gem "rack-cors", "~> 3.0"
 
+
+gem "rswag", "~> 2.16"
+
+gem "active_model_serializers", "~> 0.10.15"
+
+gem "bcrypt", "~> 3.1"

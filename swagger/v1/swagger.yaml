@@ -1,0 +1,71 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+servers:
+- url: http://127.0.0.1:3000
+paths:
+  "/users":
+    post:
+      summary: Create user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: User created
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - email
+              - password
+              properties:
+                user:
+                  type: object
+                  required:
+                  - name
+                  - email
+                  - password
+                  properties:
+                    name:
+                      type: string
+                      example: John
+                    email:
+                      type: string
+                      example: john@example.com
+                    password:
+                      type: string
+                      example: password123
+  "/users/{id}":
+    get:
+      summary: Get a user
+      tags:
+      - Users
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - name
+                - email
+                properties:
+                  name:
+                    type: string
+                    example: John
+                  email:
+                    type: string
+                    example: john@example.com
