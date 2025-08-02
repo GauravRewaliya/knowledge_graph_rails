@@ -2,53 +2,12 @@
 #
 # Table name: users
 #
-#  id                   :integer
-#  name                 :string
-#  email                :string
-#  password_digest      :string
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: users
-#
-#  id                   :integer
-#  name                 :string
-#  email                :string
-#  password_digest      :string
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: users
-#
-#  id                   :integer
-#  name                 :string
-#  email                :string
-#  password_digest      :string
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: users
-#
-#  id                   :integer
-#  name                 :string
-#  email                :string
-#  password_digest      :string
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: users
-#
-#  id                   :integer
-#  name                 :string
-#  email                :string
-#  password_digest      :string
-#  created_at           :datetime
-#  updated_at           :datetime
-#
+#  id              :integer          not null, primary key
+#  name            :string
+#  email           :string
+#  password_digest :string
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 
 class User < ApplicationRecord
     has_secure_password

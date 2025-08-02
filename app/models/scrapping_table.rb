@@ -2,7 +2,7 @@
 #
 # Table name: scrapping_tables
 #
-#  id                   :integer
+#  id                   :integer          not null, primary key
 #  source_type_key      :string
 #  url                  :string
 #  request              :jsonb
@@ -11,9 +11,13 @@
 #  conveter_code        :text
 #  final_clean_response :jsonb
 #  processing_status    :integer
-#  workspace_id         :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  workspace_id         :integer          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#
+# Indexes
+#
+#  index_scrapping_tables_on_workspace_id  (workspace_id)
 #
 
 class ScrappingTable < ApplicationRecord

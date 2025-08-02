@@ -2,67 +2,16 @@
 #
 # Table name: workspaces
 #
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  id         :integer          not null, primary key
+#  name       :string
+#  user_id    :integer          not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
-
-# Table name: workspaces
+# Indexes
 #
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  index_workspaces_on_user_id  (user_id)
 #
-
-# Table name: workspaces
-#
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: workspaces
-#
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: workspaces
-#
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: workspaces
-#
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: workspaces
-#
-#  id                   :integer
-#  name                 :string
-#  user_id              :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
 class Workspace < ApplicationRecord
   belongs_to :user
 end

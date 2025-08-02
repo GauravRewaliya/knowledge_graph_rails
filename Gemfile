@@ -58,3 +58,7 @@ gem "rswag", "~> 2.16"
 gem "active_model_serializers", "~> 0.10.15"
 
 gem "bcrypt", "~> 3.1"
+
+gem "neo4j-ruby-driver", "~> 4.4"
+
+gem "annotate", "~> 2.6"

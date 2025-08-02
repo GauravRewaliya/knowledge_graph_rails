@@ -2,52 +2,17 @@
 #
 # Table name: user_bookmarks
 #
-#  id                   :integer
-#  user_id              :integer
-#  bookmarkable_type    :string
-#  bookmarkable_id      :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  id                :integer          not null, primary key
+#  user_id           :integer          not null
+#  bookmarkable_type :string           not null
+#  bookmarkable_id   :integer          not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
-
-# Table name: user_bookmarks
+# Indexes
 #
-#  id                   :integer
-#  user_id              :integer
-#  bookmarkable_type    :string
-#  bookmarkable_id      :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: user_bookmarks
-#
-#  id                   :integer
-#  user_id              :integer
-#  bookmarkable_type    :string
-#  bookmarkable_id      :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: user_bookmarks
-#
-#  id                   :integer
-#  user_id              :integer
-#  bookmarkable_type    :string
-#  bookmarkable_id      :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Table name: user_bookmarks
-#
-#  id                   :integer
-#  user_id              :integer
-#  bookmarkable_type    :string
-#  bookmarkable_id      :integer
-#  created_at           :datetime
-#  updated_at           :datetime
+#  index_user_bookmarks_on_bookmarkable  (bookmarkable_type,bookmarkable_id)
+#  index_user_bookmarks_on_user_id       (user_id)
 #
 
 class UserBookmark < ApplicationRecord
