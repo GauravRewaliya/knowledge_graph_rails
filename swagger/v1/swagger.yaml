@@ -5,45 +5,60 @@ info:
   version: v1
 servers:
 - url: http://127.0.0.1:3000
+components:
+  schemas:
+    ScrappingTableCreateRequest:
+      type: object
+      properties:
+        url:
+          type: string
+          x-nullable: false
+        workspace_id:
+          type: integer
+          x-nullable: false
+      required:
+      - url
 paths:
   "/users":
     post:
-      summary: Create user
+      summary: Create a user
       tags:
       - Users
       parameters: []
       responses:
         '201':
           description: User created
+        '422':
+          description: Invalid input
       requestBody:
         content:
           application/json:
             schema:
               type: object
+              properties:
+                name:
+                  type: string
+                  example: Alice
+                email:
+                  type: string
+                  format: email
+                  example: alice@example.com
+                age:
+                  type: integer
+                  example: 30
               required:
               - name
               - email
-              - password
-              properties:
-                user:
-                  type: object
-                  required:
-                  - name
-                  - email
-                  - password
-                  properties:
-                    name:
-                      type: string
-                      example: John
-                    email:
-                      type: string
-                      example: john@example.com
-                    password:
-                      type: string
-                      example: password123
+    get:
+      summary: List all users
+      tags:
+      - Users
+      responses:
+        '200':
+          description: OK
   "/users/{id}":
     get:
-      summary: Get a user
+      summary: Show a user
       tags:
       - Users
       parameters:
@@ -54,7 +69,7 @@ paths:
           type: string
       responses:
         '200':
-          description: successful
+          description: User found
           content:
             application/json:
               schema:
@@ -69,3 +84,219 @@ paths:
                   email:
                     type: string
                     example: john@example.com
+        '404':
+          description: User not found
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    patch:
+      summary: Update a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: User updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                age:
+                  type: integer
+    delete:
+      summary: Delete a user
+      tags:
+      - Users
+      responses:
+        '204':
+          description: User deleted
+  "/scrapping_tables":
+    post:
+      summary: Create ScrappingTable
+      tags:
+      - ScrappingTable
+      parameters: []
+      responses:
+        '201':
+          description: Created
+        '422':
+          description: Validation failed
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  example: https://example.com
+                workspace_id:
+                  type: integer
+                  example: 42
+                  default: 1
+                request:
+                  type: object
+                  properties:
+                    curl:
+                      type: string
+                      example: curl -X GET https://example.com
+              required:
+              - url
+  "/user_bookmarks":
+    get:
+      summary: List user bookmarks
+      tags:
+      - UserBookmarks
+      responses:
+        '200':
+          description: Bookmarks listed
+    post:
+      summary: Create a bookmark
+      tags:
+      - UserBookmarks
+      parameters: []
+      responses:
+        '201':
+          description: Bookmark created
+        '422':
+          description: Invalid input
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  example: 1
+                bookmark_url:
+                  type: string
+                  example: https://example.com
+                title:
+                  type: string
+                  example: Example Site
+              required:
+              - user_id
+              - bookmark_url
+  "/user_bookmarks/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: ID of the bookmark
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Get a bookmark
+      tags:
+      - UserBookmarks
+      responses:
+        '200':
+          description: Bookmark found
+        '404':
+          description: Bookmark not found
+    patch:
+      summary: Update a bookmark
+      tags:
+      - UserBookmarks
+      parameters: []
+      responses:
+        '200':
+          description: Bookmark updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                bookmark_url:
+                  type: string
+                  example: https://new-link.com
+                title:
+                  type: string
+                  example: New Title
+    delete:
+      summary: Delete a bookmark
+      tags:
+      - UserBookmarks
+      responses:
+        '204':
+          description: Bookmark deleted
+  "/workspaces":
+    get:
+      summary: List workspaces
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: workspaces listed
+    post:
+      summary: Create workspace
+      tags:
+      - Workspaces
+      parameters: []
+      responses:
+        '201':
+          description: workspace created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: My Workspace
+              required:
+              - name
+  "/workspaces/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Workspace ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Show workspace
+      tags:
+      - Workspaces
+      responses:
+        '200':
+          description: found
+    patch:
+      summary: Update workspace
+      tags:
+      - Workspaces
+      parameters: []
+      responses:
+        '200':
+          description: updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Updated Name
+    delete:
+      summary: Delete workspace
+      tags:
+      - Workspaces
+      responses:
+        '204':
+          description: deleted

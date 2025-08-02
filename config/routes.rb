@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :workspaces
   resources :user_bookmarks
   resources :users
-  resources :scrapping_data do
+  resources :scrapping_tables do
     member do
       post :process_step
       get :refetch

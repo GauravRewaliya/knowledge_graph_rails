@@ -1,4 +1,4 @@
-class ScrappingTableController < ApplicationController
+class ScrappingTablesController < ApplicationController
   before_action :set_scrapping_data, only: [:show, :update, :destroy, :process_step, :refetch]
 
   def create
@@ -77,7 +77,12 @@ class ScrappingTableController < ApplicationController
   end
 
   def scrapping_data_params
-    params.require(:scrapping_data).permit(
+    # params.require(:scrapping_data).permit(
+    #   :source_type_key, :url, :response, :filterer_json,
+    #   :conveter_code, :final_clean_response, :processing_status, :workspace_id,
+    #   request: {} # accepts nested JSON
+    # )
+    params.permit(
       :source_type_key, :url, :response, :filterer_json,
       :conveter_code, :final_clean_response, :processing_status, :workspace_id,
       request: {} # accepts nested JSON
