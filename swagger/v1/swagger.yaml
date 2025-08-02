@@ -12,12 +12,30 @@ components:
       properties:
         url:
           type: string
-          x-nullable: false
+          example: https://example.com
+          nullable: false
         workspace_id:
           type: integer
-          x-nullable: false
-      required:
-      - url
+          example: 42
+          default: 1
+          nullable: false
+        processing_status:
+          type: string
+          example: filtered
+          default: unprocessed
+          enum:
+          - unprocessed
+          - sp_filterer
+          - filtered
+          - sp_conveter
+          - conveter
+          - sp_convert
+          - final_response
+          nullable: false
+        request:
+          type: hash
+          nullable: false
+      required: []
 paths:
   "/users":
     post:
@@ -135,23 +153,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                url:
-                  type: string
-                  example: https://example.com
-                workspace_id:
-                  type: integer
-                  example: 42
-                  default: 1
-                request:
-                  type: object
-                  properties:
-                    curl:
-                      type: string
-                      example: curl -X GET https://example.com
-              required:
-              - url
+              "$ref": "#/components/schemas/ScrappingTableCreateRequest"
   "/user_bookmarks":
     get:
       summary: List user bookmarks

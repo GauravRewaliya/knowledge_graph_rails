@@ -62,3 +62,7 @@ gem "bcrypt", "~> 3.1"
 gem "neo4j-ruby-driver", "~> 4.4"
 
 gem "annotate", "~> 2.6"
+
+gem "dry-validation", "~> 1.11"
+
+gem "dry-swagger", "~> 2.0"
