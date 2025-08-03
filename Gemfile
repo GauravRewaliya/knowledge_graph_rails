@@ -66,3 +66,5 @@ gem "annotate", "~> 2.6"
 gem "dry-validation", "~> 1.11"
 
 gem "dry-swagger", "~> 2.0"
+
+gem "hashid-rails", "~> 1.4"

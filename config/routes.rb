@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
-  resources :workspaces
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
+  resources :workspaces do
+    resources :chatgpts, only: [ :create, :show, :index, :destroy ] do
+      resources :chat_sessions, only: [ :create, :index, :destroy ] do
+        member do
+          get  :chat_messages
+          post :send_message
+          get :last_response
+        end
+      end
+    end
+  end
   resources :user_bookmarks
   resources :users
   resources :scrapping_tables do

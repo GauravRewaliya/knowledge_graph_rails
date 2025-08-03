@@ -15,7 +15,7 @@ class WorkspacesController < ApplicationController
 
   # POST /workspaces
   def create
-    @workspace = Workspace.new(workspace_params)
+    @workspace = Workspace.new({ user_id: current_user.id, **workspace_params })
 
     if @workspace.save
       render json: @workspace, status: :created, location: @workspace

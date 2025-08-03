@@ -5,37 +5,6 @@ info:
   version: v1
 servers:
 - url: http://127.0.0.1:3000
-components:
-  schemas:
-    ScrappingTableCreateRequest:
-      type: object
-      properties:
-        url:
-          type: string
-          example: https://example.com
-          nullable: false
-        workspace_id:
-          type: integer
-          example: 42
-          default: 1
-          nullable: false
-        processing_status:
-          type: string
-          example: filtered
-          default: unprocessed
-          enum:
-          - unprocessed
-          - sp_filterer
-          - filtered
-          - sp_conveter
-          - conveter
-          - sp_convert
-          - final_response
-          nullable: false
-        request:
-          type: hash
-          nullable: false
-      required: []
 paths:
   "/users":
     post:
@@ -138,6 +107,142 @@ paths:
       responses:
         '204':
           description: User deleted
+  "/workspaces/{workspace_id}/chatgpts/{chatgpt_id}/chat_sessions":
+    parameters:
+    - name: workspace_id
+      in: path
+      description: Workspace ID
+      required: true
+      schema:
+        type: string
+    - name: chatgpt_id
+      in: path
+      description: ChatGPT ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieves all chat sessions for a chatgpt
+      tags:
+      - Chat Sessions
+      responses:
+        '200':
+          description: chat sessions found
+    post:
+      summary: Creates a new chat session
+      tags:
+      - Chat Sessions
+      parameters: []
+      responses:
+        '201':
+          description: chat session created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                messages:
+                  type: array
+                  items:
+                    type: object
+              required:
+              - user_id
+  "/workspaces/{workspace_id}/chatgpts":
+    parameters:
+    - name: workspace_id
+      in: path
+      description: Workspace ID
+      required: true
+      schema:
+        type: string
+    get:
+      summary: List all chatgpts
+      tags:
+      - ChatGPTs
+      responses:
+        '200':
+          description: chatgpt list fetched
+    post:
+      summary: Create a chatgpt
+      tags:
+      - ChatGPTs
+      parameters: []
+      responses:
+        '201':
+          description: chatgpt created
+        '422':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                desc:
+                  type: string
+                auth_token:
+                  type: string
+                meta_data:
+                  type: object
+                last_used_at:
+                  type: string
+                  format: date_time
+              required:
+              - name
+              - auth_token
+  "/workspaces/{workspace_id}/chatgpts/{id}":
+    parameters:
+    - name: workspace_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      summary: Retrieve a chatgpt
+      tags:
+      - ChatGPTs
+      responses:
+        '200':
+          description: chatgpt found
+        '404':
+          description: not found
+    patch:
+      summary: Update a chatgpt
+      tags:
+      - ChatGPTs
+      parameters: []
+      responses:
+        '200':
+          description: chatgpt updated
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                desc:
+                  type: string
+    delete:
+      summary: Delete a chatgpt
+      tags:
+      - ChatGPTs
+      responses:
+        '204':
+          description: chatgpt deleted
   "/scrapping_tables":
     post:
       summary: Create ScrappingTable
@@ -153,7 +258,23 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/ScrappingTableCreateRequest"
+              type: object
+              properties:
+                url:
+                  type: string
+                  example: https://example.com
+                workspace_id:
+                  type: integer
+                  example: 42
+                  default: 1
+                request:
+                  type: object
+                  properties:
+                    curl:
+                      type: string
+                      example: curl -X GET https://example.com
+              required:
+              - url
   "/user_bookmarks":
     get:
       summary: List user bookmarks
