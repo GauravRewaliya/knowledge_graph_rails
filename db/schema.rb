@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_03_062904) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_10_094852) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -38,6 +38,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_03_062904) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["workspace_id"], name: "index_chatgpts_on_workspace_id"
+  end
+
+  create_table "graph_queryfiers", force: :cascade do |t|
+    t.string "entity_type"
+    t.string "desc"
+    t.string "cypher_dynamic_query"
+    t.json "meta_data_swagger_docs"
+    t.bigint "workspace_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["workspace_id"], name: "index_graph_queryfiers_on_workspace_id"
   end
 
   create_table "scrapping_tables", force: :cascade do |t|
@@ -84,6 +95,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_03_062904) do
   add_foreign_key "chat_sessions", "chatgpts"
   add_foreign_key "chat_sessions", "workspaces"
   add_foreign_key "chatgpts", "workspaces"
+  add_foreign_key "graph_queryfiers", "workspaces"
   add_foreign_key "scrapping_tables", "workspaces"
   add_foreign_key "user_bookmarks", "users"
   add_foreign_key "workspaces", "users"
