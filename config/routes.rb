@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => "/api-docs"
   resources :workspaces do
     resources :chatgpts, only: [ :create, :show, :index, :destroy ] do
+      collection do
+        post :import_from_curl
+        # post :import_from_har
+      end
       resources :chat_sessions, only: [ :create, :index, :destroy ] do
         member do
           get  :chat_messages

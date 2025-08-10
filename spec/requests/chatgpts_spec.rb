@@ -56,7 +56,44 @@ RSpec.describe 'ChatGPTs API', type: :request do
     end
   end
 
-  path '/workspaces/{workspace_id}/chatgpts/{id}' do
+  path '/workspaces/{workspace_id}/chatgpts/import_from_curl' do
+    parameter name: :workspace_id, in: :path, type: :string
+
+    post 'Import from raw curl' do
+      tags 'ChatGPTs'
+      consumes 'text/plain'
+
+      curl_body = <<~CURL.strip
+        curl -X POST 'https://api.openai.com/v1/chat/completions' \\
+          -H 'Content-Type: application/json' \\
+          -H 'Authorization: Bearer YOUR_TOKEN' \\
+          -d '{
+            "model": "gpt-3.5-turbo",
+            "messages": [
+              {"role": "system", "content": "You are a helpful assistant."},
+              {"role": "user", "content": "Hello!"}
+            ]
+          }'
+      CURL
+      parameter name: :curl, in: :body, required: true, schema: {
+        type: :string,
+        example: curl_body
+      }
+
+      response '201', 'chatgpt created' do
+        let(:workspace_id) { Workspace.create!(name: 'WS').id }
+        let(:chatgpt) do
+          {
+            curl: curl
+          }
+        end
+
+        run_test!
+      end
+    end
+  end
+
+  path '/workspaces/{workspace_id}/chatgpts/{chatgpt_id}' do
     parameter name: :workspace_id, in: :path, type: :string
     parameter name: :id, in: :path, type: :string
 

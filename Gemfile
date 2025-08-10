@@ -68,3 +68,5 @@ gem "dry-validation", "~> 1.11"
 gem "dry-swagger", "~> 2.0"
 
 gem "hashid-rails", "~> 1.4"
+
+gem "httparty", "~> 0.23.1"

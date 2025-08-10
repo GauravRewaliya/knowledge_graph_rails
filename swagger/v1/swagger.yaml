@@ -197,7 +197,39 @@ paths:
               required:
               - name
               - auth_token
-  "/workspaces/{workspace_id}/chatgpts/{id}":
+  "/workspaces/{workspace_id}/chatgpts/import_from_curl":
+    parameters:
+    - name: workspace_id
+      in: path
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Import from raw curl
+      tags:
+      - ChatGPTs
+      parameters: []
+      responses:
+        '201':
+          description: chatgpt created
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+              example: |-
+                curl -X POST 'https://api.openai.com/v1/chat/completions' \
+                  -H 'Content-Type: application/json' \
+                  -H 'Authorization: Bearer YOUR_TOKEN' \
+                  -d '{
+                    "model": "gpt-3.5-turbo",
+                    "messages": [
+                      {"role": "system", "content": "You are a helpful assistant."},
+                      {"role": "user", "content": "Hello!"}
+                    ]
+                  }'
+        required: true
+  "/workspaces/{workspace_id}/chatgpts/{chatgpt_id}":
     parameters:
     - name: workspace_id
       in: path
