@@ -16,6 +16,10 @@ Rails.application.routes.draw do
       end
     end
   end
+  
+  get 'view/workspaces', to: 'workspaces#workspace_index'
+  get 'view/workspaces/:workspace_id/swagger', to: 'workspaces#workspace_swagger'
+  get 'view/workspaces/:workspace_id/docs', to: 'swagger_dynamic#workspace_spec'
   resources :user_bookmarks
   resources :users
   resources :scrapping_tables do

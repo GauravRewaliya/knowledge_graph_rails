@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Workspaces - API Documentation</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background-color: #f5f5f5;
+    }
+    h1 { 
+      color: #333; 
+      margin-bottom: 30px;
+    }
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .workspace-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .workspace-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .workspace-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    .api-count {
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+    .btn {
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+      font-size: 14px;
+      transition: background-color 0.2s;
+    }
+    .btn:hover {
+      background-color: #2980b9;
+    }
+    .no-workspaces {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 18px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Workspaces API Documentation</h1>
+  <p>Click on any workspace below to view its available APIs and interactive Swagger documentation.</p>
+  
+  <div class="workspace-grid">
+    <% @workspaces.each do |workspace| %>
+      <% api_count = GraphQueryfier.where(workspace_id: workspace.id).count %>
+      <div class="workspace-card">
+        <div class="workspace-title"><%= workspace.name %></div>
+        <div class="api-count"><%= api_count %> API endpoints available</div>
+        <a href="/view/workspaces/<%= workspace.id %>/swagger" class="btn">View API Documentation</a>
+      </div>
+    <% end %>
+  </div>
+  
+  <% if @workspaces.empty? %>
+    <div class="no-workspaces">
+      No workspaces found. Create a workspace first to see API documentation.
+    </div>
+  <% end %>
+</body>
+</html>

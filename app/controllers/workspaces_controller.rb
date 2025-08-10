@@ -38,6 +38,18 @@ class WorkspacesController < ApplicationController
     @workspace.destroy!
   end
 
+  # GET /view/workspaces
+  def workspace_index
+    @workspaces = Workspace.all
+    render 'workspaces/index'
+  end
+
+  # GET /view/workspaces/:workspace_id/swagger
+  def workspace_swagger
+    @workspace = Workspace.find(params[:workspace_id])
+    render 'workspaces/show'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_workspace
