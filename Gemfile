@@ -69,4 +69,4 @@ gem "dry-swagger", "~> 2.0"
 
 gem "hashid-rails", "~> 1.4"
 
-gem "httparty", "~> 0.23.1"
+gem "httparty", "~> 0.23.2"
